@@ -1,0 +1,62 @@
+﻿@{ 
+    Layout = null;
+}
+@model CarRentManagementSystem_DomainClasses.Models.VehicleViewModel
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="modal-body">
+    <h4 class="modal-title" id="myModalLabel">Add New Vehicle</h4>
+    <div class="col-12">
+        <div class="card">
+            @using (Html.BeginForm("CreateVehicle", "Admin", FormMethod.Post, new { Id = "AddVehicleForm" }))
+            {
+                <div class="card-body">
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">First Name *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter Vehicle Name" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Vehicle Number</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Number, new { @class = "form-control", placeholder = "Enter Vehicle Number" })
+                            @Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Model</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Model, new { @class = "form-control", placeholder = "Enter Model" })
+                            @Html.ValidationMessageFor(m => m.Model, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Registred In</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.RegistredIn, new { @class = "form-control", placeholder = "Enter Registred In Place" })
+                            @Html.ValidationMessageFor(m => m.RegistredIn, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Color</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Color, new { @class = "form-control", placeholder = "Enter Color" })
+                            @Html.ValidationMessageFor(m => m.Color, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group m-b-0 text-right">
+                        <button type="button" onclick="CheckIsVehicleExist('AddVehicleForm', $('#Number').val())" class="btn btn-info waves-effect waves-light"> Save </button>
+                        <button data-dismiss="modal" class="btn btn-dark waves-effect waves-light"> Cancel </button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

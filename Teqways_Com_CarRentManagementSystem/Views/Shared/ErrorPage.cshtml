@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ErrorPage</title>
+</head>
+<body>
+    <div> 
+        <h1 style="color:red;">Error..!</h1>
+        Error Details: <br />
+        <p>
+            @ViewBag.ERROR
+        </p>
+    </div>
+
+    <footer>
+        <a href='/Home/Dashboard'>Go Back To Dashboard </a>
+    </footer>
+</body>
+</html>

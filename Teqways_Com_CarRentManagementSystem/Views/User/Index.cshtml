@@ -1,0 +1,181 @@
+﻿@model IEnumerable<CarRentManagementSystem_DomainClasses.Models.UserViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <a href="#" id="btnAddUser" class="btn btn-primary m-b-10">Add New User +</a>
+                <div class="table-responsive">
+                    <table id="UsersTable" class="table no-wrap table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email Address</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int k = 1;
+                            }
+                            @foreach (var i in Model)
+                            {
+                                <tr>
+                                    <td>@k</td>
+                                    <td>@i.FirstName</td>
+                                    <td>@i.LastName</td>
+                                    <td>@i.EmailAddress</td>
+                                    @if (i.IsActive == true)
+                                    {
+                                        <td style="color: green;">Active</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red;">De-Active</td>
+                                    }
+                                    <td>
+                                        <a href="#" onclick="EditUser('@i.Id')">Edit</a> | @if (i.IsActive == true)
+                                        {
+                                            <a href="/User/ChangeStatus?UserId=@i.Id">De-Activate</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/User/ChangeStatus?UserId=@i.Id">Activate</a>
+                                        }
+                                    </td>
+                                </tr>
+                                k++;
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="AddUserModalLabel" data-backdrop="static">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditUserModal" tabindex="-1" role="dialog" aria-labelledby="EditUserModalLabel" data-backdrop="static">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function EditUser(UserId) {
+
+        $.ajax({
+            url: '/User/EditUser?UserId='+UserId,
+            type: 'GET',
+            contentType: 'application/html',
+            success: function (content) {
+                toggleModal('EditUserModal');
+                $('#EditUserModal div.modal-content').html(content);
+            },
+            error: function (e) {
+                swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+            }
+        });
+
+    }
+    function CheckIsUserExist(EmailAddress, formName, userId) {
+        if(formName === "AddUserForm"){
+            $.ajax({
+                url: '/User/IsUserExist?EmailAddress='+EmailAddress,
+                type: 'GET',
+                contentType: 'application/html',
+                success: function (content) {
+                    if(content === "True"){
+                        swal("Warning!", "User Already Exist Against Entered Email Address!", "warning");
+                        return false;
+                    }
+                    else{
+                        $("#"+formName).submit();
+                    }
+                },
+                error: function (e) {
+                    swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+                }
+            });
+        }
+        else if(formName === "EditUserForm"){
+            $.ajax({
+                url: '/User/IsUserExistForEdit?EmailAddress='+EmailAddress+'&UserId='+userId,
+                type: 'GET',
+                contentType: 'application/html',
+                success: function (content) {
+                    if(content === "True"){
+                        swal("Warning!", "User Already Exist Against Entered Email Address!", "warning");
+                        return false;
+                    }
+                    else{
+                        $("#"+formName).submit();
+                    }
+                },
+                error: function (e) {
+                    swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+                }
+            });
+        }
+
+
+    }
+    $(document).ready(function () {
+        var alertFlag = @ViewBag.AlertFlag;
+        if(alertFlag === 1){
+            swal("Success!", "User Created Successfully!", "success");
+        }
+        else if(alertFlag === 2){
+            swal("Updated!", "User Updated Successfully!", "success");
+        }
+        else if(alertFlag === 3){
+            swal("Updated!", "User Deactivated Successfully!", "success");
+        }
+        else if(alertFlag === 4){
+            swal("Updated!", "User Activated Successfully!", "success");
+        }
+
+        $("#UsersTable").DataTable();
+
+        $("#btnAddUser").click(function () {
+
+            $.ajax({
+                url: '/User/Create',
+                type: 'GET',
+                contentType: 'application/html',
+                success: function (content) {
+                    toggleModal('AddUserModal');
+                    $('#AddUserModal div.modal-content').html(content);
+                },
+                error: function (e) {
+                    swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+                }
+            });
+
+        });
+
+    });
+
+</script>

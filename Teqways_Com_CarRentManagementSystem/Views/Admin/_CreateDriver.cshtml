@@ -1,0 +1,91 @@
+﻿@{ 
+    Layout = null;
+}
+@model CarRentManagementSystem_DomainClasses.Models.DriverViewModel
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="modal-body">
+    <h4 class="modal-title" id="myModalLabel">Add New Driver</h4>
+    <div class="col-12">
+        <div class="card">
+            @using (Html.BeginForm("CreateDriver", "Admin", FormMethod.Post, new { Id = "AddDriverForm" }))
+            {
+                <div class="card-body">
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">First Name *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Enter First Name" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Enter Last Name" })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">CNIC *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.CNIC, new { @class = "form-control", placeholder = "Enter CNIC" })
+                            @Html.ValidationMessageFor(m => m.CNIC, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Address</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Contact No *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", placeholder = "Enter Contact No" })
+                            @Html.ValidationMessageFor(m => m.ContactNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">License Type</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.LicenseType, new { @class = "form-control", placeholder = "Enter License Type" })
+                            @Html.ValidationMessageFor(m => m.LicenseType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">License No</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.LicenseNo, new { @class = "form-control", placeholder = "Enter License No" })
+                            @Html.ValidationMessageFor(m => m.LicenseNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">City *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Enter City" })
+                            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Experience(Years)</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.ExperienceInYears, new { @class = "form-control", placeholder = "Enter Experience" })
+                            @Html.ValidationMessageFor(m => m.ExperienceInYears, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group m-b-0 text-right">
+                        <button type="submit" class="btn btn-info waves-effect waves-light"> Save </button>
+                        <button data-dismiss="modal" class="btn btn-dark waves-effect waves-light"> Cancel </button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

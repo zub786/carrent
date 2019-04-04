@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarRentManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingFromDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="VehicleId_Fk" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" />
+          <Property Name="FromLocation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ToLocation" Type="varchar" MaxLength="50" />
+          <Property Name="AdvanceAmount" Type="int" />
+          <Property Name="BookedBy_FK" Type="int" />
+          <Property Name="Shift" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="CNIC" Type="varchar" MaxLength="50" />
+          <Property Name="MileageStart" Type="varchar" MaxLength="50" />
+          <Property Name="MileageEnd" Type="varchar" MaxLength="50" />
+          <Property Name="FuleLtr" Type="int" />
+          <Property Name="Driver1Id_FK" Type="int" />
+          <Property Name="Driver2Id_FK" Type="int" />
+          <Property Name="RentAmount" Type="int" />
+          <Property Name="Notes" Type="varchar" MaxLength="200" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="EntryDate" Type="datetime2" Precision="7" />
+          <Property Name="BookingToDate" Type="datetime2" Precision="7" />
+          <Property Name="Duration" Type="int" />
+        </EntityType>
+        <EntityType Name="CashReceiving">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="BookingId_FK" Type="bigint" Nullable="false" />
+          <Property Name="PaymentType" Type="int" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="int" Nullable="false" />
+          <Property Name="RemainingAmount" Type="int" Nullable="false" />
+          <Property Name="ReceivedOn" Type="datetime" Nullable="false" />
+          <Property Name="ReceivedBy_FK" Type="int" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedBy_FK" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="CNIC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LicenseType" Type="varchar" MaxLength="50" />
+          <Property Name="LicenseNo" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExperienceInYears" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy_FK" Type="int" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime2" Precision="7" />
+          <Property Name="ModifiedBy_FK" Type="int" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="varchar" MaxLength="50" />
+          <Property Name="RegistredIn" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CarRentManagementSystemModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashReceiving" EntityType="Self.CashReceiving" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarRentManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CarRentManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CashReceivings" EntityType="CarRentManagementSystemModel.CashReceiving" />
+          <EntitySet Name="Drivers" EntityType="CarRentManagementSystemModel.Driver" />
+          <EntitySet Name="Vehicles" EntityType="CarRentManagementSystemModel.Vehicle" />
+          <EntitySet Name="Users" EntityType="CarRentManagementSystemModel.User" />
+          <EntitySet Name="Bookings" EntityType="CarRentManagementSystemModel.Booking" />
+        </EntityContainer>
+        <EntityType Name="CashReceiving">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BookingId_FK" Type="Int64" Nullable="false" />
+          <Property Name="PaymentType" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
+          <Property Name="RemainingAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReceivedBy_FK" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy_FK" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CNIC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LicenseType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExperienceInYears" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegistredIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy_FK" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="7" />
+          <Property Name="ModifiedBy_FK" Type="Int32" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingFromDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleId_Fk" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Precision="7" />
+          <Property Name="FromLocation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BookedBy_FK" Type="Int32" />
+          <Property Name="Shift" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CNIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MileageStart" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MileageEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FuleLtr" Type="Int32" />
+          <Property Name="Driver1Id_FK" Type="Int32" />
+          <Property Name="Driver2Id_FK" Type="Int32" />
+          <Property Name="RentAmount" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="7" />
+          <Property Name="BookingToDate" Type="DateTime" Precision="7" />
+          <Property Name="Duration" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarRentManagementSystemModelStoreContainer" CdmEntityContainer="CarRentManagementSystemEntities">
+          <EntitySetMapping Name="CashReceivings">
+            <EntityTypeMapping TypeName="CarRentManagementSystemModel.CashReceiving">
+              <MappingFragment StoreEntitySet="CashReceiving">
+                <ScalarProperty Name="ModifiedBy_FK" ColumnName="ModifiedBy_FK" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ReceivedBy_FK" ColumnName="ReceivedBy_FK" />
+                <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
+                <ScalarProperty Name="RemainingAmount" ColumnName="RemainingAmount" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="BookingId_FK" ColumnName="BookingId_FK" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="CarRentManagementSystemModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ExperienceInYears" ColumnName="ExperienceInYears" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
+                <ScalarProperty Name="LicenseType" ColumnName="LicenseType" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="CarRentManagementSystemModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="RegistredIn" ColumnName="RegistredIn" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CarRentManagementSystemModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ModifiedBy_FK" ColumnName="ModifiedBy_FK" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedBy_FK" ColumnName="CreatedBy_FK" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="CarRentManagementSystemModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="BookingToDate" ColumnName="BookingToDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="RentAmount" ColumnName="RentAmount" />
+                <ScalarProperty Name="Driver2Id_FK" ColumnName="Driver2Id_FK" />
+                <ScalarProperty Name="Driver1Id_FK" ColumnName="Driver1Id_FK" />
+                <ScalarProperty Name="FuleLtr" ColumnName="FuleLtr" />
+                <ScalarProperty Name="MileageEnd" ColumnName="MileageEnd" />
+                <ScalarProperty Name="MileageStart" ColumnName="MileageStart" />
+                <ScalarProperty Name="CNIC" ColumnName="CNIC" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="BookedBy_FK" ColumnName="BookedBy_FK" />
+                <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
+                <ScalarProperty Name="FromLocation" ColumnName="FromLocation" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="VehicleId_Fk" ColumnName="VehicleId_Fk" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="BookingFromDate" ColumnName="BookingFromDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

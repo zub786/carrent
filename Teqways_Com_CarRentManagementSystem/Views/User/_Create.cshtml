@@ -1,0 +1,56 @@
+﻿@{ 
+    Layout = null;
+}
+@model CarRentManagementSystem_DomainClasses.Models.UserViewModel
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="modal-body">
+    <h4 class="modal-title" id="myModalLabel">Add New User</h4>
+    <div class="col-12">
+        <div class="card">
+            @using (Html.BeginForm("Create", "User", FormMethod.Post, new { Id = "AddUserForm" }))
+            {
+                <div class="card-body">
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">First Name *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Enter First Name" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Enter Last Name" })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">User Name *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", placeholder = "Enter Email Address" })
+                            @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row p-b-15">
+                        <label for="inputEmail3" class="col-sm-3 text-right control-label col-form-label">Password *</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", placeholder = "Enter Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group m-b-0 text-right">
+                        <button type="button" onclick="CheckIsUserExist($('#EmailAddress').val(), 'AddUserForm');" class="btn btn-info waves-effect waves-light"> Save </button>
+                        <button data-dismiss="modal" class="btn btn-dark waves-effect waves-light"> Cancel </button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

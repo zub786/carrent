@@ -1,0 +1,184 @@
+﻿@model IEnumerable<CarRentManagementSystem_DomainClasses.Models.VehicleViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <a href="#" id="btnAddVehicle" class="btn btn-primary m-b-10">Add New Vehicle +</a>
+                <div class="table-responsive">
+                    <table id="VehiclesTable" class="table no-wrap table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Name</th>
+                                <th>Number</th>
+                                <th>Model</th>
+                                <th>Registered In(City)</th>
+                                <th>Color</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int k = 1;
+                            }
+                            @foreach (var i in Model)
+                            {
+                                <tr>
+                                    <td>@k</td>
+                                    <td>@i.Name</td>
+                                    <td>@i.Number</td>
+                                    <td>@i.Model</td>
+                                    <td>@i.RegistredIn</td>
+                                    <td>@i.Color</td>
+                                    @if (i.IsActive == true)
+                                    {
+                                        <td style="color: green;">Active</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red;">De-Active</td>
+                                    }
+                                    <td>
+                                        <a href="#" onclick="EditVehicle('@i.Id')">Edit</a> | @if (i.IsActive == true)
+                                        {
+                                            <a href="/Admin/ChangeVehicleStatus?VehicleId=@i.Id">De-Activate</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Admin/ChangeVehicleStatus?VehicleId=@i.Id">Activate</a>
+                                        }
+                                    </td>
+                                </tr>
+                                k++;
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddVehicleModal" tabindex="-1" role="dialog" aria-labelledby="AddVehicleModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditVehicleModal" tabindex="-1" role="dialog" aria-labelledby="EditVehicleModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function EditVehicle(VehicleId) {
+
+        $.ajax({
+            url: '/Admin/EditVehicle?VehicleId='+VehicleId,
+            type: 'GET',
+            contentType: 'application/html',
+            success: function (content) {
+                toggleModal('EditVehicleModal');
+                $('#EditVehicleModal div.modal-content').html(content);
+            },
+            error: function (e) {
+                swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+            }
+        });
+
+    }
+    $(document).ready(function () {
+        var alertFlag = @ViewBag.AlertFlag;
+        if(alertFlag === 1){
+            swal("Success!", "Vehicle Created Successfully!", "success");
+        }
+        else if(alertFlag === 2){
+            swal("Updated!", "Vehicle Updated Successfully!", "success");
+        }
+        else if(alertFlag === 3){
+            swal("Updated!", "Vehicle Deactivated Successfully!", "success");
+        }
+        else if(alertFlag === 4){
+            swal("Updated!", "Vehicle Activated Successfully!", "success");
+        }
+
+        $("#VehiclesTable").DataTable();
+
+        $("#btnAddVehicle").click(function () {
+
+            $.ajax({
+                url: '/Admin/CreateVehicle',
+                type: 'GET',
+                contentType: 'application/html',
+                success: function (content) {
+                    toggleModal('AddVehicleModal');
+                    $('#AddVehicleModal div.modal-content').html(content);
+                },
+                error: function (e) {
+                    swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+                }
+            });
+
+        });
+
+    });
+    function CheckIsVehicleExist(formName, VehicleNumber) {
+        if(formName === "AddVehicleForm"){
+            $.ajax({
+                url: '/Admin/IsVehicleExist?VehicleNumber='+VehicleNumber,
+                type: 'GET',
+                contentType: 'application/html',
+                success: function (content) {
+                    if(content === "True"){
+                        swal("Warning!", "Vehicle Already Exist Against Entered Vehicle Number!", "warning");
+                        return false;
+                    }
+                    else{
+                        $("#"+formName).submit();
+                    }
+                },
+                error: function (e) {
+                    swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+                }
+            });
+        }
+        else if(formName === "EditVehicleForm"){
+            $.ajax({
+                url: '/User/IsVehicleExist?VehicleNumber='+VehicleNumber,
+                type: 'GET',
+                contentType: 'application/html',
+                success: function (content) {
+                    if(content === "True"){
+                        swal("Warning!", "Vehicle Already Exist Against Entered Vehicle Number!", "warning");
+                        return false;
+                    }
+                    else{
+                        $("#"+formName).submit();
+                    }
+                },
+                error: function (e) {
+                    swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+                }
+            });
+        }
+
+
+    }
+</script>

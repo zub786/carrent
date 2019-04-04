@@ -1,0 +1,298 @@
+﻿@model CarRentManagementSystem_DomainClasses.Models.BookingViewModel
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Add New Booking</h4>
+            <div class="d-flex align-items-center">
+
+            </div>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex no-block justify-content-end align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Booking</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Add New Booking</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-12">
+
+
+            <div class="card">
+                @using (Html.BeginForm("Create", "Booking", FormMethod.Post, new { Id = "NewBookingForm" }))
+                {
+                    <div class="card-body">
+                        <h4 style="font-weight: bold;" class="card-title">CLIENT DETAILS </h4>
+                        <hr />
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Booking No</label>
+                                        @Html.TextBoxFor(model => model.Id, new { @class = "form-control", Readonly = "readonly", Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Customer Name</label>
+                                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Address</label>
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Phone #</label>
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Mobile</label>
+                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">CNIC</label>
+                                        @Html.TextBoxFor(model => model.CNIC, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <h4 style="font-weight: bold;" class="card-title">BOOKING DETAILS</h4>
+                        <hr />
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Vehicle Name</label>
+                                    @Html.DropDownListFor(model => model.VehicleId_Fk, (IEnumerable<SelectListItem>)ViewBag.VehicleId_Fk, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.VehicleId_Fk, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Entry Date</label>
+                                    <input type="text" name="EntryDate" id="EntryDate" class="form-control" value="@DateTime.Now" />
+                                    @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Booking Date From</label>
+                                    @Html.TextBoxFor(model => model.BookingFromDate, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BookingFromDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Booking Date To</label>
+                                    @Html.TextBoxFor(model => model.BookingToDate, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BookingToDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Location From</label>
+                                    @Html.TextBoxFor(model => model.FromLocation, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.FromLocation, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Location To</label>
+                                    @Html.TextBoxFor(model => model.ToLocation, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ToLocation, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Mileage Start</label>
+                                    @Html.TextBoxFor(model => model.MileageStart, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MileageStart, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Mileage End</label>
+                                    @Html.TextBoxFor(model => model.MileageEnd, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MileageEnd, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Driver 1</label>
+                                    @Html.DropDownListFor(model => model.Driver1Id_FK, (IEnumerable<SelectListItem>)ViewBag.Driver1Id_FK, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Driver1Id_FK, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Driver 2</label>
+                                    @Html.DropDownListFor(model => model.Driver2Id_FK, (IEnumerable<SelectListItem>)ViewBag.Driver2Id_FK, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Driver2Id_FK, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Start Time</label>
+                                    @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Close Time</label>
+                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Duration</label>
+                                    @Html.TextBoxFor(model => model.Duration, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Fuel Ltr</label>
+                                    @Html.TextBoxFor(model => model.FuleLtr, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.FuleLtr, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Rent Amount</label>
+                                    @Html.TextBoxFor(model => model.RentAmount, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.RentAmount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="validationCustom01">Notes</label>
+                                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control", rows = "10" })
+                                    @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+
+                        <div class="form-actions">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-info">Submit</button>
+                                <button type="reset" class="btn btn-dark">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Row -->
+    <!-- Row -->
+    <!-- End Row -->
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+
+
+<script>
+
+    //$("#MasterItemId").change(function () {
+
+
+    //    $.ajax({
+    //        method: "GET",
+    //        url: "https://sandbox-api-ca.metrc.com/items/v1/" + $(this).val() + "?licenseNumber=A11-0000002-LIC",
+    //        contentType: 'application/json',
+    //        //data: JSON.stringify(pkgs),
+    //        headers: {
+    //            'Authorization': 'Basic UGlWR3QtNFRUUENkSS1JREZMVmZEMHVhdWJQdzJLYWJYZTNQTXhYNldWOWEzMklZOkZ1c1ZiZTRZdjZXMURHTnV4S05oQnlYVTZSTzZqU1VQY2JSQ29SREQ5OFZOWGM0RA==',
+    //            'Content-Type': 'application/json'
+    //        },
+    //        success: function (response) {
+    //            //debugger;
+    //            console.log(response);
+
+    //            $("#ProductCategoryName").val(response.ProductCategoryType);
+    //            $("#ProductName").val(response.Name);
+    //            $("#DeclaredNetContentCBD").val(response.UnitCbdContent);
+    //            $("#DeclaredNetContentTHC").val(response.UnitThcContent);
+    //            $("#IndividualServingSizeTotalWeight").val(response.ServingSize);
+
+
+
+
+
+    //        },
+    //        error: function (err) {
+    //            //debugger;
+    //            console.log(err.responseText);
+    //        }
+
+
+
+    //    });
+
+
+
+    //});
+    $("#EntryDate").datepicker();
+</script>
