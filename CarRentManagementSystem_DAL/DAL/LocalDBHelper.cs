@@ -176,12 +176,34 @@ namespace CarRentManagementSystem_DAL.DAL
 
             return Booking.Id;
         }
+        public long AddUpdateReceiving(string model)
+        {
+            CashReceiving Receiving = JsonConvert.DeserializeObject<CashReceiving>(model);
+            if (DbContext.CashReceivings.Any(i => i.Id == Receiving.Id))
+            {
+                DbContext.Entry(Receiving).State = EntityState.Modified;
+                DbContext.SaveChanges();
+                return Receiving.Id;
+            }
+            DbContext.CashReceivings.Add(Receiving);
+            DbContext.SaveChanges();
+
+            return Receiving.Id;
+        }
 
         public string GetBookingDetails(long id)
         {
             return JsonConvert.SerializeObject(DbContext.Bookings.FirstOrDefault(i => i.Id == id));
         }
-
+        public string GetBookingCashDetails(long id)
+        {
+            return JsonConvert.SerializeObject(DbContext.CashReceivings.Where(i => i.BookingId_FK == id));
+        }
+        public string GetAllBookings()
+        {
+            return JsonConvert.SerializeObject(DbContext.Bookings.ToList());
+        }
+        
 
     }
 }

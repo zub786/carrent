@@ -25,10 +25,10 @@ namespace CarRentManagementSystem_DAL.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CashReceiving> CashReceivings { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<CashReceiving> CashReceivings { get; set; }
     }
 }

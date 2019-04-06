@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5c7fb0270556495597cfef0af7cae832" Name="Diagram1">
-        <EntityTypeShape EntityType="CarRentManagementSystemModel.CashReceiving" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="CarRentManagementSystemModel.Driver" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="CarRentManagementSystemModel.Vehicle" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="CarRentManagementSystemModel.User" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="CarRentManagementSystemModel.Booking" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CarRentManagementSystemModel.CashReceiving" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewBag.Title = "ReceiveCash";
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+@model CarRentManagementSystem_DomainClasses.Models.BookingViewModel
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Booking Cash Receiving</h4>
+            <div class="d-flex align-items-center">
+
+            </div>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex no-block justify-content-end align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Operations</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Cash Receiving</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-12">
+
+            <a href="/Booking/Index" class="btn btn-primary m-b-10">View Receivings</a>
+            <div class="card">
+                <form id="CashReceivingForm">
+                    <div class="card-body">
+                        <h4 style="font-weight: bold;" class="card-title">CASH RECEIVING GROSS DETAILS </h4>
+                        <hr />
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.Hidden("EditReceivingId", 0)
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Booking No</label>
+                                        <input type="text" name="BookingNo" id="BookingNo" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Total Received</label>
+                                        <input type="text" name="TotalReceived" id="TotalReceived" class="form-control" readonly />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Customer</label>
+                                        <input type="text" name="CustomerName" id="CustomerName" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Booking Amount</label>
+                                        <input type="text" name="BookingAmount" id="BookingAmount" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Transaction Date</label>
+                                        <input type="text" name="TransactionDate" id="TransactionDate" value="@DateTime.Now" class="form-control" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Payment Type</label>
+                                        <select class="form-control" id="PaymentType" name="PaymentType" required>
+                                            <option value="">Select Payment Type</option>
+                                            <option value="Advance">Advance</option>
+                                            <option value="Balance">Balance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">New Amount To Receive *</label>
+                                        <input type="text" name="NewReceiveAmount" id="NewReceiveAmount" class="form-control" required />
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="text-right">
+                                <button type="button" id="btnApplyPayment" class="btn btn-info">Process Payment</button>
+                                <button type="reset" id="btnPaymentReset" class="btn btn-dark">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <hr />
+                <div class="card-body">
+                    <h4 style="font-weight: bold;" class="card-title">CASH RECEIVING TRANSACTIONS </h4>
+                    <hr />
+                    <div class="table-responsive">
+                        <table id="ReceivedCashTransactions" class="table no-wrap table-hover contact-list" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th>Recv. No</th>
+                                    <th>Rent Amount</th>
+                                    <th>Recv. Amount</th>
+                                    <th>Due Amount</th>
+                                    <th>Payment Type</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" colspan="7">There is no transaction.</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Row -->
+    <!-- Row -->
+    <!-- End Row -->
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+
+
+<script>
+
+    $('#BookingNo').on('keypress', function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13')
+            GetBookingDetails();
+    });
+   
+    $('#BookingNo').on('change', function (event) {
+        GetBookingDetails();
+    });
+
+    function GetBookingDetails() {
+        $(".preloader").fadeIn();
+        $.ajax({
+            url: '/Booking/GetBookingDetailsWithCashDetails',
+            data: { BookingId: $("#BookingNo").val() },
+            type: 'GET',
+            contentType: 'application/html',
+            success: function (content) {
+                debugger;
+                $(".preloader").fadeOut();
+                var BookingDetails = $.parseJSON(content);
+                if (BookingDetails.isRecordNotFound)
+                    swal("Not Found", "Invalid Booking No!", "warning").then(function () {
+                        $("#CashReceivingForm")[0].reset();
+                        $('#ReceivedCashTransactions > tbody').html('');
+                    });
+                else
+                {
+                    $("#TotalReceived").val(BookingDetails.TotalReceived);
+                    $("#CustomerName").val(BookingDetails.CustomerName);
+                    $("#BookingAmount").val(BookingDetails.BookingAmount);
+                    if (BookingDetails.CashDetails.length > 0) {
+                        $('#ReceivedCashTransactions > tbody').html('');
+                        $.each(BookingDetails.CashDetails, function (i, transaction) {
+                            var DateCreated = new Date(Date.parse(transaction.ReceivedOn)).toString().substring(0, 16);
+                            $('#ReceivedCashTransactions > tbody')
+                                .append('<tr><td>' + transaction.Id + '</td><td>' + BookingDetails.BookingAmount + '</td><td>' + transaction.ReceivedAmount + '</td><td>' + (parseFloat(BookingDetails.BookingAmount) - parseFloat(transaction.ReceivedAmount)) + '</td><td>' + transaction.PaymentType + '</td><td>' + DateCreated + '</td><td><a href="#">Edit</a> | <a href="#">Delete</a></td></tr>');
+                        });
+                    }
+                }
+            },
+            error: function (e) {
+                $(".preloader").fadeOut();
+                swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+            }
+        });
+    }
+    $('#btnApplyPayment').on('click', function () {
+        
+        // get all the inputs into an array.
+        var $inputs = $('#CashReceivingForm :input');
+
+        // not sure if you wanted this, but I thought I'd add it.
+        // get an associative array of just the values.
+        var values = {};
+        $inputs.each(function () {
+            values[this.name] = $(this).val();
+        });
+        if (values.BookingNo === "") {
+            swal("Required", "Please Enter Booking ID", "warning");
+            return;
+        }
+        if (values.NewReceiveAmount === "") {
+            swal("Required", "Please Enter Amount To Process", "warning");
+            return;
+        }
+        debugger;
+        if (values.PaymentType === "") {
+            swal("Required", "Please Choose Payment Type To Process", "warning");
+            return;
+        }
+        debugger;
+        var strObj = JSON.stringify(values);
+        $.ajax({
+            url: '/Booking/AddOrUpdateReceiving',
+            data: { modelString: strObj },
+            type: 'GET',
+            contentType: 'application/html',
+            success: function (content) {
+                debugger;
+                $(".preloader").fadeOut();
+                var BookingDetails = $.parseJSON(content);
+                if (BookingDetails.isRecordNotFound)
+                    swal("Not Found", "Invalid Booking No!", "warning").then(function () {
+                        $("#CashReceivingForm")[0].reset();
+                        $('#ReceivedCashTransactions > tbody').html('');
+                        $("#BookingNo").focus();
+                        $("#BookingNo").blur();
+                    });
+                else {
+                    $("#TotalReceived").val(BookingDetails.TotalReceived);
+                    $("#CustomerName").val(BookingDetails.CustomerName);
+                    $("#BookingAmount").val(BookingDetails.BookingAmount);
+                    if (BookingDetails.CashDetails.length > 0) {
+                        $('#ReceivedCashTransactions > tbody').html('');
+                        $.each(BookingDetails.CashDetails, function (i, transaction) {
+                            var DateCreated = new Date(Date.parse(transaction.ReceivedOn)).toString().substring(0, 16);
+                            $('#ReceivedCashTransactions > tbody')
+                                .append('<tr><td>' + transaction.Id + '</td><td>' + BookingDetails.BookingAmount + '</td><td>' + transaction.ReceivedAmount + '</td><td>' + (parseFloat(BookingDetails.BookingAmount) - parseFloat(BookingDetails.TotalReceived)) + '</td><td>' + transaction.PaymentType + '</td><td>' + DateCreated + '</td><td><a href="#">Edit</a> | <a href="#">Delete</a></td></tr>');
+                        });
+                    }
+                }
+            },
+            error: function (e) {
+                $(".preloader").fadeOut();
+                swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+            }
+        });
+
+    });
+
+</script>

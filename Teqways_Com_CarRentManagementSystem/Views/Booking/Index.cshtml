@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CarRentManagementSystem_DAL.DAL.Booking>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Bookings</h4>
+            <div class="d-flex align-items-center">
+
+            </div>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex no-block justify-content-end align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Booking</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Bookings</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <a href="/Booking/Create" class="btn btn-primary m-b-10">Add New +</a>
+                <div class="table-responsive">
+                    <table id="DriversTable" class="table no-wrap table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>B ID</th>
+                                <th>Customer</th>
+                                <th>From Location</th>
+                                <th>To Location</th>
+                                <th>Start Booking</th>
+                                <th>Close Booking</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in Model)
+                            {
+                                <tr>
+                                    <td>@i.Id</td>
+                                    <td>@i.CustomerName</td>
+                                    <td>@i.FromLocation</td>
+                                    <td>@i.ToLocation</td>
+                                    <td>@Convert.ToDateTime(i.BookingFromDate).ToString("ddd, dd MMM yyyy") @Convert.ToDateTime(@i.StartTime).ToString("hh:mm tt")</td>
+                                    <td>@Convert.ToDateTime(i.BookingToDate).ToString("ddd, dd MMM yyyy") @Convert.ToDateTime(@i.EndTime).ToString("hh:mm tt")</td>
+                                    <td>
+                                        <a href="/Booking/Edit/@i.Id">Edit</a> | <a href="/Booking/Edit/@i.Id">View</a>
+                                    </td>
+                                   
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+
+    </div>
+</div>
+
+
+<script>
+    $("#DriversTable").DataTable({
+        "oLanguage": {
+            "sSearch": "Search Booking ID:"
+        }
+    });
+</script>

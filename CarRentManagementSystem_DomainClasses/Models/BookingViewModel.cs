@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CarRentManagementSystem_DomainClasses.Models
 {
@@ -10,15 +11,15 @@ namespace CarRentManagementSystem_DomainClasses.Models
     {
         public long Id { get; set; }
         [Required, Display(Name = "Booking Date")]
-        public System.DateTime BookingFromDate { get; set; }
+        public string BookingFromDate { get; set; }
         [Required, Display(Name = "Customer Name")]
         public string CustomerName { get; set; }
         [Required, Display(Name = "Vehicle Name")]
         public int VehicleId_Fk { get; set; }
         [Required, Display(Name = "Start Time")]
-        public System.DateTime StartTime { get; set; }
+        public string StartTime { get; set; }
         [Display(Name = "Close Time")]
-        public Nullable<System.DateTime> EndTime { get; set; }
+        public string EndTime { get; set; }
         [Required, Display(Name = "From Location")]
         public string FromLocation { get; set; }
         [Display(Name = "To Location")]
@@ -52,8 +53,11 @@ namespace CarRentManagementSystem_DomainClasses.Models
         [Required, Display(Name = "Entry Date")]
         public Nullable<System.DateTime> EntryDate { get; set; }
         [Required, Display(Name = "Booking To Date")]
-        public Nullable<System.DateTime> BookingToDate { get; set; }
+        public string BookingToDate { get; set; }
         [Display(Name = "Duration")]
         public int Duration { get; set; }
+        public IEnumerable<SelectListItem> Vehicles { get; set; }
+        public IEnumerable<SelectListItem> Driver1List { get; set; }
+        public IEnumerable<SelectListItem> Driver2List { get; set; }
     }
 }

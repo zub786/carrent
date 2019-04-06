@@ -152,6 +152,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BookingViewModel.cs" />
+    <Compile Include="Models\BookingCashReceivingViewModel.cs" />
+    <Compile Include="Models\CashReceivingViewModel.cs" />
     <Compile Include="Models\DriverViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VehicleViewModel.cs" />

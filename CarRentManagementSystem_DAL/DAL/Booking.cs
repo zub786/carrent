@@ -15,11 +15,11 @@ namespace CarRentManagementSystem_DAL.DAL
     public partial class Booking
     {
         public long Id { get; set; }
-        public System.DateTime BookingFromDate { get; set; }
+        public string BookingFromDate { get; set; }
         public string CustomerName { get; set; }
         public int VehicleId_Fk { get; set; }
-        public System.DateTime StartTime { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public string FromLocation { get; set; }
         public string ToLocation { get; set; }
         public Nullable<int> BookedBy_FK { get; set; }
@@ -36,8 +36,8 @@ namespace CarRentManagementSystem_DAL.DAL
         public Nullable<int> RentAmount { get; set; }
         public string Notes { get; set; }
         public string Status { get; set; }
-        public Nullable<System.DateTime> EntryDate { get; set; }
-        public Nullable<System.DateTime> BookingToDate { get; set; }
+        public string EntryDate { get; set; }
+        public string BookingToDate { get; set; }
         public Nullable<int> Duration { get; set; }
     }
 }
