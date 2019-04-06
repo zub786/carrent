@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item">
                             <a href="#">Booking</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Add New Booking</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Booking</li>
                     </ol>
                 </nav>
             </div>
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-12">
 
-
+            <a href="/Booking/Index" class="btn btn-primary m-b-10">View Bookings</a>
             <div class="card">
 
 
@@ -104,7 +104,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Vehicle Name</label>
-                                   @Html.DropDownListFor(model => model.VehicleId_Fk, (IEnumerable<SelectListItem>)ViewBag.VehicleId_Fk, "Select Vehicle", new { @class = "form-control" })
+                                   @Html.DropDownListFor(model => model.VehicleId_Fk, Model.Vehicles, "Select Vehicle", new { @class = "form-control" })
                                    @Html.ValidationMessageFor(model => model.VehicleId_Fk, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -120,14 +120,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Booking Date From</label>
-                                    @Html.TextBoxFor(model => model.BookingFromDate, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.BookingFromDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BookingFromDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Booking Date To</label>
-                                    @Html.TextBoxFor(model => model.BookingToDate, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.BookingToDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BookingToDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -163,28 +163,28 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Driver 1</label>
-                                    @Html.DropDownListFor(model => model.Driver1Id_FK, (IEnumerable<SelectListItem>)ViewBag.Driver1Id_FK, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.Driver1Id_FK, Model.Driver1List, "Select Vehicle", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Driver1Id_FK, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Driver 2</label>
-                                    @Html.DropDownListFor(model => model.Driver2Id_FK, (IEnumerable<SelectListItem>)ViewBag.Driver2Id_FK, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.Driver2Id_FK, Model.Driver2List, "Select Vehicle", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Driver2Id_FK, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Start Time</label>
-                                    @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control", @type = "time" })
                                     @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Close Time</label>
-                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control", @type = "time" })
                                     @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
 
                                 </div>
@@ -224,7 +224,7 @@
                         <div class="form-actions">
                             <div class="text-right">
                                 <button type="submit" class="btn btn-info">Update</button>
-                                <button type="reset" class="btn btn-dark">Reset</button>
+                                <a href="/Booking/Index" class="btn btn-dark waves-effect waves-light">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -305,6 +305,8 @@
         else if(alertFlag === 2){
             swal("Updated!", "Booking Updated Successfully!", "success");
         }
-       
+        $("#EntryDate").datepicker();
+        $("#BookingFromDate").datepicker();
+        $("#BookingToDate").datepicker();
     });
 </script>

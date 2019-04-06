@@ -12,7 +12,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Booking new</a>
+                            <a href="#">Booking</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Add New Booking</li>
                     </ol>
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-12">
 
-
+            <a href="/Booking/Index" class="btn btn-primary m-b-10">View Bookings</a>
             <div class="card">
                 @using (Html.BeginForm("Create", "Booking", FormMethod.Post, new { Id = "NewBookingForm" }))
                 {
@@ -102,7 +102,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Vehicle Name</label>
-                                    @Html.DropDownListFor(model => model.VehicleId_Fk, (IEnumerable<SelectListItem>)ViewBag.VehicleId_Fk, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.VehicleId_Fk, Model.Vehicles, "Select Vehicle", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.VehicleId_Fk, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Entry Date</label>
-                                    <input type="text" name="EntryDate" id="EntryDate" class="form-control" value="@DateTime.Now" />
+                                    @Html.TextBoxFor(model => model.EntryDate, new { @class = "form-control"})
                                     @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Booking Date From</label>
-                                    @Html.TextBoxFor(model => model.BookingFromDate, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.BookingFromDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BookingFromDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -161,28 +161,28 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Driver 1</label>
-                                    @Html.DropDownListFor(model => model.Driver1Id_FK, (IEnumerable<SelectListItem>)ViewBag.Driver1Id_FK, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.Driver1Id_FK, Model.Driver1List, "Select Vehicle", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Driver1Id_FK, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Driver 2</label>
-                                    @Html.DropDownListFor(model => model.Driver2Id_FK, (IEnumerable<SelectListItem>)ViewBag.Driver2Id_FK, "Select Vehicle", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.Driver2Id_FK, Model.Driver2List, "Select Vehicle", new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Driver2Id_FK, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Start Time</label>
-                                    @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control", @type = "time" })
                                     @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="validationCustom01">Close Time</label>
-                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control", @type = "time" })
                                     @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
 
                                 </div>
@@ -254,45 +254,29 @@
 
 
 <script>
+    var daysToAdd = 0;
 
-    //$("#MasterItemId").change(function () {
-
-
-    //    $.ajax({
-    //        method: "GET",
-    //        url: "https://sandbox-api-ca.metrc.com/items/v1/" + $(this).val() + "?licenseNumber=A11-0000002-LIC",
-    //        contentType: 'application/json',
-    //        //data: JSON.stringify(pkgs),
-    //        headers: {
-    //            'Authorization': 'Basic UGlWR3QtNFRUUENkSS1JREZMVmZEMHVhdWJQdzJLYWJYZTNQTXhYNldWOWEzMklZOkZ1c1ZiZTRZdjZXMURHTnV4S05oQnlYVTZSTzZqU1VQY2JSQ29SREQ5OFZOWGM0RA==',
-    //            'Content-Type': 'application/json'
-    //        },
-    //        success: function (response) {
-    //            //debugger;
-    //            console.log(response);
-
-    //            $("#ProductCategoryName").val(response.ProductCategoryType);
-    //            $("#ProductName").val(response.Name);
-    //            $("#DeclaredNetContentCBD").val(response.UnitCbdContent);
-    //            $("#DeclaredNetContentTHC").val(response.UnitThcContent);
-    //            $("#IndividualServingSizeTotalWeight").val(response.ServingSize);
-
-
-
-
-
-    //        },
-    //        error: function (err) {
-    //            //debugger;
-    //            console.log(err.responseText);
-    //        }
-
-
-
-    //    });
-
-
-
-    //});
     $("#EntryDate").datepicker();
+    $("#BookingFromDate").datepicker({
+        onSelect: function (selected) {
+            var dtMax = new Date(selected);
+            dtMax.setDate(dtMax.getDate() + daysToAdd);
+            var dd = dtMax.getDate();
+            var mm = dtMax.getMonth() + 1;
+            var y = dtMax.getFullYear();
+            var dtFormatted = mm + '/' + dd + '/' + y;
+            $("#BookingToDate").datepicker("option", "minDate", dtFormatted);
+        }
+    });
+    $("#BookingToDate").datepicker({
+        onSelect: function (selected) {
+            var dtMax = new Date(selected);
+            dtMax.setDate(dtMax.getDate() - daysToAdd);
+            var dd = dtMax.getDate();
+            var mm = dtMax.getMonth() + 1;
+            var y = dtMax.getFullYear();
+            var dtFormatted = mm + '/' + dd + '/' + y;
+            $("#BookingFromDate").datepicker("option", "maxDate", dtFormatted)
+        }
+    });
 </script>

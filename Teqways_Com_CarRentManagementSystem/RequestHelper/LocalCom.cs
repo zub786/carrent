@@ -53,9 +53,22 @@ namespace Teqways_Com_CarRentManagementSystem.RequestHelper
         {
             return _DBHepler.AddUpdateBooking(model);
         }
+        public long AddUpdateReceiving(string model)
+        {
+            return _DBHepler.AddUpdateReceiving(model);
+        }
         public string GetBookingDetails(long id)
         {
             return _DBHepler.GetBookingDetails(id);
         }
+        public string GetBookingCashDetails(long id)
+        {
+            return _DBHepler.GetBookingCashDetails(id);
+        }
+        public string GetAllBookings()
+        {
+            return _DBHepler.GetAllBookings();
+        }
+
     }
 }

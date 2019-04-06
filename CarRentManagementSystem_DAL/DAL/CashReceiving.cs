@@ -16,7 +16,7 @@ namespace CarRentManagementSystem_DAL.DAL
     {
         public int Id { get; set; }
         public long BookingId_FK { get; set; }
-        public int PaymentType { get; set; }
+        public string PaymentType { get; set; }
         public int ReceivedAmount { get; set; }
         public int RemainingAmount { get; set; }
         public System.DateTime ReceivedOn { get; set; }

@@ -10,14 +10,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BookingFromDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="BookingFromDate" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CustomerName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="VehicleId_Fk" Type="int" Nullable="false" />
-          <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="EndTime" Type="datetime2" Precision="7" />
+          <Property Name="StartTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EndTime" Type="varchar" MaxLength="50" />
           <Property Name="FromLocation" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ToLocation" Type="varchar" MaxLength="50" />
-          <Property Name="AdvanceAmount" Type="int" />
           <Property Name="BookedBy_FK" Type="int" />
           <Property Name="Shift" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="varchar" MaxLength="100" />
@@ -32,17 +31,17 @@
           <Property Name="RentAmount" Type="int" />
           <Property Name="Notes" Type="varchar" MaxLength="200" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
-          <Property Name="EntryDate" Type="datetime2" Precision="7" />
-          <Property Name="BookingToDate" Type="datetime2" Precision="7" />
+          <Property Name="EntryDate" Type="varchar" MaxLength="50" />
+          <Property Name="BookingToDate" Type="varchar" MaxLength="50" />
           <Property Name="Duration" Type="int" />
         </EntityType>
         <EntityType Name="CashReceiving">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookingId_FK" Type="bigint" Nullable="false" />
-          <Property Name="PaymentType" Type="int" Nullable="false" />
+          <Property Name="PaymentType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ReceivedAmount" Type="int" Nullable="false" />
           <Property Name="RemainingAmount" Type="int" Nullable="false" />
           <Property Name="ReceivedOn" Type="datetime" Nullable="false" />
@@ -107,26 +106,12 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CarRentManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CarRentManagementSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CashReceivings" EntityType="CarRentManagementSystemModel.CashReceiving" />
           <EntitySet Name="Drivers" EntityType="CarRentManagementSystemModel.Driver" />
           <EntitySet Name="Vehicles" EntityType="CarRentManagementSystemModel.Vehicle" />
           <EntitySet Name="Users" EntityType="CarRentManagementSystemModel.User" />
           <EntitySet Name="Bookings" EntityType="CarRentManagementSystemModel.Booking" />
+          <EntitySet Name="CashReceivings" EntityType="CarRentManagementSystemModel.CashReceiving" />
         </EntityContainer>
-        <EntityType Name="CashReceiving">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="BookingId_FK" Type="Int64" Nullable="false" />
-          <Property Name="PaymentType" Type="Int32" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
-          <Property Name="RemainingAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceivedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ReceivedBy_FK" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy_FK" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Driver">
           <Key>
             <PropertyRef Name="Id" />
@@ -177,11 +162,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookingFromDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BookingFromDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="VehicleId_Fk" Type="Int32" Nullable="false" />
-          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="EndTime" Type="DateTime" Precision="7" />
+          <Property Name="StartTime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FromLocation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ToLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BookedBy_FK" Type="Int32" />
@@ -198,9 +183,23 @@
           <Property Name="RentAmount" Type="Int32" />
           <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EntryDate" Type="DateTime" Precision="7" />
-          <Property Name="BookingToDate" Type="DateTime" Precision="7" />
+          <Property Name="EntryDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BookingToDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Duration" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CashReceiving">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingId_FK" Type="Int64" Nullable="false" />
+          <Property Name="PaymentType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
+          <Property Name="RemainingAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReceivedBy_FK" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy_FK" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -208,21 +207,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CarRentManagementSystemModelStoreContainer" CdmEntityContainer="CarRentManagementSystemEntities">
-          <EntitySetMapping Name="CashReceivings">
-            <EntityTypeMapping TypeName="CarRentManagementSystemModel.CashReceiving">
-              <MappingFragment StoreEntitySet="CashReceiving">
-                <ScalarProperty Name="ModifiedBy_FK" ColumnName="ModifiedBy_FK" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="ReceivedBy_FK" ColumnName="ReceivedBy_FK" />
-                <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
-                <ScalarProperty Name="RemainingAmount" ColumnName="RemainingAmount" />
-                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="BookingId_FK" ColumnName="BookingId_FK" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Drivers">
             <EntityTypeMapping TypeName="CarRentManagementSystemModel.Driver">
               <MappingFragment StoreEntitySet="Driver">
@@ -298,6 +282,21 @@
                 <ScalarProperty Name="VehicleId_Fk" ColumnName="VehicleId_Fk" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="BookingFromDate" ColumnName="BookingFromDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashReceivings">
+            <EntityTypeMapping TypeName="CarRentManagementSystemModel.CashReceiving">
+              <MappingFragment StoreEntitySet="CashReceiving">
+                <ScalarProperty Name="ModifiedBy_FK" ColumnName="ModifiedBy_FK" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ReceivedBy_FK" ColumnName="ReceivedBy_FK" />
+                <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
+                <ScalarProperty Name="RemainingAmount" ColumnName="RemainingAmount" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="BookingId_FK" ColumnName="BookingId_FK" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
