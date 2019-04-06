@@ -69,6 +69,10 @@ namespace Teqways_Com_CarRentManagementSystem.RequestHelper
         {
             return _DBHepler.GetAllBookings();
         }
-
+        public long DeleteReceiving(int RID)
+        {
+            return _DBHepler.DeleteReceiving(RID);
+        }
+        
     }
 }

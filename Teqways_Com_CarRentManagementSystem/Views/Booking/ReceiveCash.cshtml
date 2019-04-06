@@ -80,7 +80,12 @@
                                         <input type="text" name="TransactionDate" id="TransactionDate" value="@DateTime.Now" class="form-control" readonly />
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="validationCustom01">Due Amount</label>
+                                        <input type="text" name="DueAmount" id="DueAmount" style="font-weight: bold;" class="form-control" readonly />
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="validationCustom01">Payment Type</label>
@@ -97,8 +102,6 @@
                                         <input type="text" name="NewReceiveAmount" id="NewReceiveAmount" class="form-control" required />
                                     </div>
                                 </div>
-
-
 
                             </div>
                         </div>
@@ -164,7 +167,39 @@
 
 
 <script>
+    function RenderBookingDetails(content) {
+        $(".preloader").fadeOut();
+        var BookingDetails = $.parseJSON(content);
+        if (BookingDetails.isRecordNotFound)
+            swal("Not Found", "Invalid Booking No!", "warning").then(function () {
+                $("#CashReceivingForm")[0].reset();
+                $('#ReceivedCashTransactions > tbody').html('');
+                $("#BookingNo").focus();
+                $("#BookingNo").blur();
+            });
+        else {
+            $("#TotalReceived").val(BookingDetails.TotalReceived);
+            $("#CustomerName").val(BookingDetails.CustomerName);
+            $("#BookingAmount").val(BookingDetails.BookingAmount);
+            $("#DueAmount").val(parseFloat(BookingDetails.BookingAmount) - parseFloat(BookingDetails.TotalReceived));
+            if (BookingDetails.CashDetails.length > 0) {
+                $('#ReceivedCashTransactions > tbody').html('');
+                $.each(BookingDetails.CashDetails, function (i, transaction) {
+                    var DateCreated = new Date(Date.parse(transaction.ReceivedOn)).toString().substring(0, 16);
+                    $('#ReceivedCashTransactions > tbody')
+                        .append('<tr><td>' + transaction.Id + '</td><td>' + BookingDetails.BookingAmount + '</td><td>' + transaction.ReceivedAmount + '</td><td>' + transaction.RemainingAmount + '</td><td>' + transaction.PaymentType + '</td><td>' + DateCreated + '</td><td><a href="#" onclick="DeleteTransaction('+transaction.Id+')">Remove</a></td></tr>');
+                    if (transaction.RemainingAmount === 0)
+                        $("#btnApplyPayment").prop('disabled', 'disabled');
+                });
+                swal("Done", "Transactions Updated Successfully", "success");
+            }
+            else {
+                $('#ReceivedCashTransactions > tbody').html('');
+                $('#ReceivedCashTransactions > tbody').html('<tr><td class="text-center" colspan="7">There is no transaction.</td></tr>');
 
+            }
+        }
+    }
     $('#BookingNo').on('keypress', function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13')
@@ -183,7 +218,6 @@
             type: 'GET',
             contentType: 'application/html',
             success: function (content) {
-                debugger;
                 $(".preloader").fadeOut();
                 var BookingDetails = $.parseJSON(content);
                 if (BookingDetails.isRecordNotFound)
@@ -196,13 +230,25 @@
                     $("#TotalReceived").val(BookingDetails.TotalReceived);
                     $("#CustomerName").val(BookingDetails.CustomerName);
                     $("#BookingAmount").val(BookingDetails.BookingAmount);
+                    $("#DueAmount").val(parseFloat(BookingDetails.BookingAmount) - parseFloat(BookingDetails.TotalReceived));
+                    if (parseFloat(BookingDetails.BookingAmount) - parseFloat(BookingDetails.TotalReceived) === 0)
+                        $("#btnApplyPayment").prop('disabled', 'disabled');
+                    else
+                        $("#btnApplyPayment").prop('disabled', false);
                     if (BookingDetails.CashDetails.length > 0) {
                         $('#ReceivedCashTransactions > tbody').html('');
                         $.each(BookingDetails.CashDetails, function (i, transaction) {
                             var DateCreated = new Date(Date.parse(transaction.ReceivedOn)).toString().substring(0, 16);
                             $('#ReceivedCashTransactions > tbody')
-                                .append('<tr><td>' + transaction.Id + '</td><td>' + BookingDetails.BookingAmount + '</td><td>' + transaction.ReceivedAmount + '</td><td>' + (parseFloat(BookingDetails.BookingAmount) - parseFloat(transaction.ReceivedAmount)) + '</td><td>' + transaction.PaymentType + '</td><td>' + DateCreated + '</td><td><a href="#">Edit</a> | <a href="#">Delete</a></td></tr>');
+                                .append('<tr><td>' + transaction.Id + '</td><td>' + BookingDetails.BookingAmount + '</td><td>' + transaction.ReceivedAmount + '</td><td>' + transaction.RemainingAmount + '</td><td>' + transaction.PaymentType + '</td><td>' + DateCreated + '</td><td><a href="#" onclick="DeleteTransaction(' + transaction.Id + ')">Remove</a></td></tr>');
+                            if (transaction.RemainingAmount === 0)
+                                $("#btnApplyPayment").prop('disabled', 'disabled');
                         });
+                    }
+                    else {
+                        $('#ReceivedCashTransactions > tbody').html('');
+                        $('#ReceivedCashTransactions > tbody').html('<tr><td class="text-center" colspan="7">There is no transaction.</td></tr>');
+                        
                     }
                 }
             },
@@ -231,12 +277,10 @@
             swal("Required", "Please Enter Amount To Process", "warning");
             return;
         }
-        debugger;
         if (values.PaymentType === "") {
             swal("Required", "Please Choose Payment Type To Process", "warning");
             return;
         }
-        debugger;
         var strObj = JSON.stringify(values);
         $.ajax({
             url: '/Booking/AddOrUpdateReceiving',
@@ -244,29 +288,7 @@
             type: 'GET',
             contentType: 'application/html',
             success: function (content) {
-                debugger;
-                $(".preloader").fadeOut();
-                var BookingDetails = $.parseJSON(content);
-                if (BookingDetails.isRecordNotFound)
-                    swal("Not Found", "Invalid Booking No!", "warning").then(function () {
-                        $("#CashReceivingForm")[0].reset();
-                        $('#ReceivedCashTransactions > tbody').html('');
-                        $("#BookingNo").focus();
-                        $("#BookingNo").blur();
-                    });
-                else {
-                    $("#TotalReceived").val(BookingDetails.TotalReceived);
-                    $("#CustomerName").val(BookingDetails.CustomerName);
-                    $("#BookingAmount").val(BookingDetails.BookingAmount);
-                    if (BookingDetails.CashDetails.length > 0) {
-                        $('#ReceivedCashTransactions > tbody').html('');
-                        $.each(BookingDetails.CashDetails, function (i, transaction) {
-                            var DateCreated = new Date(Date.parse(transaction.ReceivedOn)).toString().substring(0, 16);
-                            $('#ReceivedCashTransactions > tbody')
-                                .append('<tr><td>' + transaction.Id + '</td><td>' + BookingDetails.BookingAmount + '</td><td>' + transaction.ReceivedAmount + '</td><td>' + (parseFloat(BookingDetails.BookingAmount) - parseFloat(BookingDetails.TotalReceived)) + '</td><td>' + transaction.PaymentType + '</td><td>' + DateCreated + '</td><td><a href="#">Edit</a> | <a href="#">Delete</a></td></tr>');
-                        });
-                    }
-                }
+                RenderBookingDetails(content);
             },
             error: function (e) {
                 $(".preloader").fadeOut();
@@ -275,5 +297,30 @@
         });
 
     });
+
+    function DeleteTransaction(transId) {
+        $(".preloader").fadeIn();
+        $.ajax({
+            url: '/Booking/DeleteReceiving',
+            data: { RID: transId },
+            type: 'GET',
+            contentType: 'application/html',
+            success: function (content) {
+                RenderBookingDetails(content);
+                if (parseFloat($("#DueAmount").val()) > 0) {
+                    $("#btnApplyPayment").prop('disabled', false);
+                }
+                else {
+                    $("#btnApplyPayment").prop('disabled', 'disabled');
+                }
+            },
+            error: function (e) {
+                $(".preloader").fadeOut();
+                swal("Try Again!", "Some Error Occured. Try Again!", "warning");
+            }
+        });
+    }
+
+
 
 </script>

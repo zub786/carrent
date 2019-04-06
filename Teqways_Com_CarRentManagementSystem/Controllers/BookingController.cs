@@ -199,8 +199,11 @@ namespace Teqways_Com_CarRentManagementSystem.Controllers
             long BookingId = _LocalCom.AddUpdateReceiving(JsonConvert.SerializeObject(transaction));
             return GetBookingDetailsWithCashDetails(receiving.BookingNo);
         }
-
         
+        public object DeleteReceiving(int RID)
+        {
+            return GetBookingDetailsWithCashDetails(_LocalCom.DeleteReceiving(RID));
+        }
         #endregion
     }
 }

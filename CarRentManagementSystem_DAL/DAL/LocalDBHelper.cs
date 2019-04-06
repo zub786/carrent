@@ -204,6 +204,15 @@ namespace CarRentManagementSystem_DAL.DAL
             return JsonConvert.SerializeObject(DbContext.Bookings.ToList());
         }
         
+        public long DeleteReceiving(int RID)
+        {
+            CashReceiving recevingToDel = DbContext.CashReceivings.FirstOrDefault(c => c.Id == RID);
+            long BookingId = recevingToDel.BookingId_FK;
+            DbContext.Entry(recevingToDel).State = EntityState.Deleted;
+            DbContext.SaveChanges();
+            return BookingId;
+        }
+
 
     }
 }
